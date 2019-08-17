@@ -25,7 +25,7 @@ script:
 deploy:
   provider: releases
   api_key: "$GITHUB_OAUTH_TOKEN"
-  file: "app/build/outputs/apk/app-release.apk"
+  file: "app/build/outputs/apk/release/app-release.apk"
   skip_cleanup: true
   on:
     tags: true
