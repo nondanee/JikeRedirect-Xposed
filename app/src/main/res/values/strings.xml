@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Jike Redirect</string>
+    <string name="description">Redirect Jike API to Jellow API</string>
+</resources>
