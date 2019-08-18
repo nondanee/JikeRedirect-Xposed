@@ -91,7 +91,7 @@ public class XposedInit implements IXposedHookLoadPackage {
                     Intent intent = (Intent) param.args[1];
                     if (intent != null && intent.getComponent().getClassName().equals("com.ruguoapp.jike.business.web.ui.WebActivity")) {
                         if (intent.getExtras().getString("url").equals("http://localhost:48030/files/guide/index.html?displayHeader=false")) {
-                            intent.setClassName("com.ruguoapp.jike", "com.ruguoapp.jike.business.login.ui.LoginWithPhoneCodeActivity");
+                            intent.setClassName("com.ruguoapp.jike", "com.ruguoapp.jike.business.main.ui.MainActivity");
                         }
                     }
                     super.beforeHookedMethod(param);
