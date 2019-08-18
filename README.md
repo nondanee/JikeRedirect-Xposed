@@ -6,9 +6,11 @@
 
 - 连接 Jellow API
 
-- 移除 Webview 的外部链接重定向 (因为 `redirect.jellow.club` 坏掉了)
+- 移除 Webview 的外部链接重定向 (因为 `redirect.jellow.club` 用不了)
 
 - 强制显示招呼和通知 (聊天页 503)
+
+- 把 "暂不登录" 动作指向手机登录 (有 BUG，手机登录后需要手动再次打开即刻并**再次点击** "暂不登录"，有没有大佬帮我修一下 QAQ)
 
 ## Screenshot
 

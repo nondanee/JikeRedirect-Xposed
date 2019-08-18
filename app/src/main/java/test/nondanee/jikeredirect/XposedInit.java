@@ -1,5 +1,7 @@
 package test.nondanee.jikeredirect;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +74,26 @@ public class XposedInit implements IXposedHookLoadPackage {
                     uri = URLDecoder.decode(uri, "utf-8");
                     if (!uri.startsWith("https://redirect.jike.ruguoapp.com/?redirect=")) return;
                     param.args[0] = "jike://page.jk/web?url=" + uri.substring(45);
+                    super.beforeHookedMethod(param);
+                }
+            }
+        );
+
+        XposedHelpers.findAndHookMethod(
+            "com.ruguoapp.jike.global.h",
+            loadPackageParam.classLoader,
+            "a",
+            Context.class,
+            Intent.class,
+            new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    Intent intent = (Intent) param.args[1];
+                    if (intent != null && intent.getComponent().getClassName().equals("com.ruguoapp.jike.business.web.ui.WebActivity")) {
+                        if (intent.getExtras().getString("url").equals("http://localhost:48030/files/guide/index.html?displayHeader=false")) {
+                            intent.setClassName("com.ruguoapp.jike", "com.ruguoapp.jike.business.login.ui.LoginWithPhoneCodeActivity");
+                        }
+                    }
                     super.beforeHookedMethod(param);
                 }
             }
