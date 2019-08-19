@@ -4,13 +4,17 @@
 
 ## Feature
 
-- 连接 Jellow API
+- 连接到 Jellow API HOST
 
-- 移除 Webview 的外部链接重定向 (因为 `redirect.jellow.club` 用不了)
+- 移除 Webview 的外部链接重定向 (`redirect.jellow.club` 用不了)
 
-- 强制显示招呼和通知 (聊天页 503)
+- 强制显示招呼和通知 (聊天页 503 错误)
 
-- "暂不登录" 跳过引导页 (因为引导页显示不出来)
+- 跳过引导页 (引导页显示不了)
+
+- 修改圈子动态 API (Jellow 圈子 API 有改动)
+
+- 修正 CDN 错误资源
 
 ## Screenshot
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.net.URL;
 import java.net.URLDecoder;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -61,6 +62,40 @@ public class XposedInit implements IXposedHookLoadPackage {
         );
 
         XposedHelpers.findAndHookMethod(
+            "com.ruguoapp.jike.network.d",
+            loadPackageParam.classLoader,
+            "b",
+            String.class,
+            new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    String path = (String) param.args[0];
+                    if (path.equals("/topics/tabs/square/feed")) {
+                        param.args[0] = "/topicFeed/list";
+                    }
+                    super.beforeHookedMethod(param);
+                }
+            }
+        );
+
+        XposedHelpers.findAndHookMethod(
+            "com.bumptech.glide.j",
+            loadPackageParam.classLoader,
+            "b",
+            Object.class,
+            new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    Object object = (Object) param.args[0];
+                    if (!(object instanceof String)) return;
+                    String url = (String) object;
+                    param.args[0] = (Object) url.replace("cdn.ruguoapp.com", "cdn.jellow.site").replace("pic-txcdn.ruguoapp.com", "cdn.jellow.site");
+                    super.beforeHookedMethod(param);
+                }
+            }
+        );
+
+        XposedHelpers.findAndHookMethod(
             "com.ruguoapp.jike.global.h",
             loadPackageParam.classLoader,
             "b",
@@ -89,7 +124,7 @@ public class XposedInit implements IXposedHookLoadPackage {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     Intent intent = (Intent) param.args[1];
-                    if (intent != null && intent.getComponent().getClassName().equals("com.ruguoapp.jike.business.web.ui.WebActivity")) {
+                    if (intent != null && intent.getComponent() != null && intent.getComponent().getClassName().equals("com.ruguoapp.jike.business.web.ui.WebActivity")) {
                         if (intent.getExtras().getString("url").equals("http://localhost:48030/files/guide/index.html?displayHeader=false")) {
                             intent.setClassName("com.ruguoapp.jike", "com.ruguoapp.jike.business.main.ui.MainActivity");
                         }
