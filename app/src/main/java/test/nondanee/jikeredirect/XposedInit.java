@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.Map;
 
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.XC_MethodHook;
@@ -42,6 +43,21 @@ public class XposedInit implements IXposedHookLoadPackage {
                     String host = (String) param.args[0];
                     param.args[0] = host.replace("app.jike.ruguoapp.com", "api.jellow.club");
                     super.beforeHookedMethod(param);
+                }
+            }
+        );
+
+        XposedHelpers.findAndHookMethod(
+            "com.ruguoapp.jike.network.c",
+            loadPackageParam.classLoader,
+            "a",
+            new XC_MethodHook() {
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    Map<String, String> headers = (Map) param.getResult();
+                    headers.put("App-Version", "8.1.0");
+                    headers.put("ApplicationId", "io.iftech.jellow");
+                    param.setResult(headers);
                 }
             }
         );
@@ -89,7 +105,9 @@ public class XposedInit implements IXposedHookLoadPackage {
                     Object object = (Object) param.args[0];
                     if (!(object instanceof String)) return;
                     String url = (String) object;
-                    param.args[0] = (Object) url.replace("cdn.ruguoapp.com", "cdn.jellow.site").replace("pic-txcdn.ruguoapp.com", "cdn.jellow.site");
+                    param.args[0] = (Object) url
+                        .replace("cdn.ruguoapp.com", "cdn.jellow.site")
+                        .replace("pic-txcdn.ruguoapp.com", "cdn.jellow.site");
                     super.beforeHookedMethod(param);
                 }
             }
