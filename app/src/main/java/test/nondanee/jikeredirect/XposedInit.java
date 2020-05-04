@@ -55,7 +55,8 @@ public class XposedInit implements IXposedHookLoadPackage {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     Map<String, String> headers = (Map) param.getResult();
-                    headers.put("App-Version", "8.1.0");
+                    headers.put("App-Version", "8.2.3");
+                    headers.put("App-BuildNo", String.valueOf(971));
                     headers.put("ApplicationId", "io.iftech.jellow");
                     param.setResult(headers);
                 }
