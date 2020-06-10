@@ -1,6 +1,6 @@
 # JikeRedirect-Xposed
 
-~~一个护眼 Xposed 模块~~
+~~一个护眼 Xposed 模块~~ 即刻回来啦! (2020.6.10)
 
 ## Feature
 
